@@ -16,6 +16,7 @@ function Header() {
 
   const dispatch = useDispatch();
   const navigate=useNavigate()
+  // const location = useLocation();
 
   const logoutHandler = () => {
     console.log('Logout Handler Called');

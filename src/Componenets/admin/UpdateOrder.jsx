@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 function UpdateOrder() {
     const { loading, isOrderUpdated, error, orderDetail={} } = useSelector( state => state.orderstate)
     console.log(orderDetail);
-    const { users = {}, orderItems = [], shippingInfo = {}, totalPrice = 0, paymentInfo = {}} = orderDetail;
+    const { user = {}, orderItems = [], shippingInfo = {}, totalPrice = 0, paymentInfo = {}} = orderDetail;
     console.log(orderItems);
     const isPaid = paymentInfo.status === 'succeeded'? true: false;
     const [orderStatus, setOrderStatus] = useState("Processing");
@@ -71,7 +71,7 @@ function UpdateOrder() {
                             <h1 className="my-5">Order # {orderDetail._id}</h1>
     
                             <h4 className="mb-4">Shipping Info</h4>
-                            <p><b>Name:</b> {users.name}</p>
+                            <p><b>Name:</b> {user.name}</p>
                             <p><b>Phone:</b> {shippingInfo.phoneNo}</p>
                             <p className="mb-4"><b>Address:</b>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.postalCode}, {shippingInfo.state}, {shippingInfo.country}</p>
                             <p><b>Amount:</b> ${totalPrice}</p>

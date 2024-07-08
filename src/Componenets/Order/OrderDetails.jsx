@@ -10,7 +10,7 @@ function OrderDetails() {
     const { orderDetail={}, loading } = useSelector(state => state.orderstate)
     console.log(orderDetail);
     const { shippingInfo={},  orderStatus="Processing", orderItems=[], totalPrice=0, paymentInfo={} } = orderDetail;
-    const {user}=useSelector(state=> state.authsatate)
+    // const {user}=useSelector(state=> state.authsatate)
 
     const isPaid = paymentInfo && paymentInfo.status === "succeeded" ? true: false;
     const dispatch = useDispatch();

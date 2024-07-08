@@ -24,25 +24,12 @@ function ResetPassword() {
         dispatch(resetPassword(formData, token))
     }
 
-    useEffect(()=> {
-        if(isAuthenticated) {
-            toast('Password Reset Success!', {
-                type: 'success',
-                position:'POSITION.BOTTOM_CENTER'
-            })
-            navigate('/')
-            return;
+    useEffect(() => {
+        if (error) {
+          toast.error(error);
+          dispatch(clearerrorauth());
         }
-        if(error)  {
-            toast(error, {
-                position: 'POSITION.BOTTOM_CENTER',
-                type: 'error',
-                onOpen: () => { dispatch(clearerrorauth()) }
-
-            })
-            return
-        }
-    },[isAuthenticated, error, dispatch, navigate])
+      }, [error, dispatch]);
 
   return (
     <>
@@ -89,3 +76,52 @@ function ResetPassword() {
 }
 
 export default ResetPassword
+// import React, { useEffect } from 'react';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { loadUser, logout } from '../../action/UserAction';
+
+// const Header = () => {
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+//   const { isAuthenticated, user } = useSelector(state => state.authstate);
+
+//   useEffect(() => {
+//     if (isAuthenticated) {
+//       dispatch(loadUser());
+//     }
+//   }, [dispatch, isAuthenticated]);
+
+//   const handleLogout = () => {
+//     dispatch(logout());
+//     navigate('/login');
+//   };
+
+//   return (
+//     <header>
+//       <nav className="navbar navbar-expand-lg navbar-light bg-light">
+//         <Link className="navbar-brand" to="/">YourAppName</Link>
+//         <div className="collapse navbar-collapse" id="navbarNav">
+//           <ul className="navbar-nav ml-auto">
+//             {isAuthenticated ? (
+//               <>
+//                 <li className="nav-item">
+//                   <span className="nav-link">Hello, {user && user.name}</span>
+//                 </li>
+//                 <li className="nav-item">
+//                   <button className="btn btn-link nav-link" onClick={handleLogout}>Logout</button>
+//                 </li>
+//               </>
+//             ) : (
+//               <li className="nav-item">
+//                 <Link className="nav-link" to="/login">Login</Link>
+//               </li>
+//             )}
+//           </ul>
+//         </div>
+//       </nav>
+//     </header>
+//   );
+// };
+
+// export default Header;

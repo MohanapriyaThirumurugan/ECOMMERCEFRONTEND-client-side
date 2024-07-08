@@ -43,6 +43,8 @@ function ShippingInfo() {
     const [postalCode, setPostalCode] = useState(shippingInfo.postalCode);
     const [country, setCountry] = useState(shippingInfo.country);
     const [state, setState] = useState(shippingInfo.state);
+    const [Name, setName] = useState(shippingInfo.Name);
+
     // this country list npm countrylist package
     const countryList =  Object.values(countries);
     const dispatch = useDispatch();
@@ -50,7 +52,7 @@ function ShippingInfo() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(saveShippingInfo({address, city, phoneNo, postalCode, country, state}))
+        dispatch(saveShippingInfo({address, city, phoneNo, postalCode, country, state,Name}))
         navigate('/order/confirm')
     }
 
@@ -64,6 +66,21 @@ function ShippingInfo() {
                         <form  className="shadow-lg"  onSubmit={submitHandler}>
                             <h1 className="mb-4">Shipping Info</h1>
                             <div className="form-group">
+                                
+                                <label htmlFor="address_field">Name</label>
+                                <input
+                                    type="text"
+                                    id="address_field"
+                                    className="form-control"
+                                    value={Name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+
+                            <div className="form-group">
+                                
                                 <label htmlFor="address_field">Address</label>
                                 <input
                                     type="text"

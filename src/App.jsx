@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Header from "./Componenets/layouts/Header.jsx";
 import Fooder from "./Componenets/layouts/Fooder.jsx";
 import Home from "./Componenets/Home.jsx";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Router, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -45,6 +45,7 @@ function App() {
   const [stripeApiKey, setStripeApiKey] = useState("pk_test_51PH4R9SIDWBvgV79FcbUL0HDLyGIPfNL1PROpAsQhPV8oHPU0zEKUNVYUfQsfjgg7O4UecR2OWpqNU8MqUajQ2r400c7GBzv5y")
 const dispatch = useDispatch();
 
+
 useEffect(()=>{
   // dispatch(loadUser());
   async function fetchStripeApiKey() {
@@ -71,15 +72,21 @@ useEffect(()=>{
 
 },[dispatch])
 
+
+
+
   return (
     <>
       <BrowserRouter>
       <div className="App">
+        
         <HelmetProvider>
-          <Header />
-          <div className='container container-fluid'>
+     
+           {/* <Header /> chatgpt see*/} 
+         <div className='container container-fluid'>
           <ToastContainer theme="dark"autoClose={5000}/>
           <Routes>
+
             <Route path="/" element={<Home/>}></Route>
             <Route path="/search/:keyword" element={<ProductSearch/>}></Route>
             <Route path="/productdetails/:id" element={<ProductDetails/>}></Route>
@@ -123,5 +130,90 @@ useEffect(()=>{
     </>
   );
 }
-
 export default App;
+
+// const AppContent = () => {
+//   const location = useLocation();
+
+//   const renderHeader = () => {
+//     const noHeaderPaths = ['/resetpassword'];
+//     return !noHeaderPaths.some(path => location.pathname.startsWith(path));
+//   }
+
+//   return (
+//     <>
+//       {renderHeader() && <Header />}
+//       <div className='container container-fluid'>
+//         <ToastContainer theme="dark" autoClose={5000} />
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/search/:keyword" element={<ProductSearch />} />
+//           <Route path="/productdetails/:id" element={<ProductDetails />} />
+//           <Route path="/login" element={<Login />} />
+//           <Route path="/register" element={<Register />} />
+//           <Route path="/myprofile" element={<Profile />} />
+//           <Route path="/myprofile/update/:id" element={<UpdateProfile />} />
+//           <Route path="/myprofile/update/password/:id" element={<Updatepassword />} />
+//           <Route path="/forgotpassword" element={<Forgotpassword />} />
+//           <Route path="/resetpassword/:token" element={<ResetPassword />} />
+//           <Route path="/cart" element={<Cart />} />
+//           <Route path="/shipping" element={<ShippingInfo />} />
+//           <Route path="/order/confirm" element={<ConfrimOrder />} />
+//           <Route path='/payments' element={<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>} />
+//           <Route path="/order/success" element={<Ordercompleted/>} />
+//           <Route path="/order/userorders" element={<Userorder />} />
+//           <Route path="/order/details/:id" element={<OrderDetails />} />
+
+//           {/* Admin routes */}
+//           <Route path='/admin/dashboard' element={<Dashboard />} />
+//           <Route path='/admin/productList' element={<ProductList />} />
+//           <Route path='/admin/newproduct' element={<NewProduct />} />
+//           <Route path='/admin/updateproduct/:id' element={<Updateproduct />} />
+//           <Route path='/admin/adminorder/' element={<OrderList />} />
+//           <Route path='/admin/updateorder/:id' element={<UpdateOrder />} />
+//           <Route path='/admin/users' element={<UserList />} />
+//           <Route path='/admin/usersList/:id' element={<UserUpdate />} />
+//           <Route path='/admin/reviewList' element={<ReveiwList/>} />
+//         </Routes>
+//       </div>
+//       <Fooder />
+//     </>
+//   );
+// };
+
+// function App() {
+//   const [stripeApiKey, setStripeApiKey] = useState("pk_test_51PH4R9SIDWBvgV79FcbUL0HDLyGIPfNL1PROpAsQhPV8oHPU0zEKUNVYUfQsfjgg7O4UecR2OWpqNU8MqUajQ2r400c7GBzv5y");
+//   const dispatch = useDispatch();
+
+//   useEffect(() => {
+//     async function fetchStripeApiKey() {
+//       try {
+//         const token = getToken();
+//         const config = {
+//           headers: {
+//             'Content-type': 'Application/json',
+//             Authorization: `Bearer ${token}`,
+//           }
+//         }
+//         const response = await axios.get('http://localhost:8000/payments', config);
+//         setStripeApiKey(response.data.stripeApiKey);
+//         console.log(response.data.stripeApiKey);
+//       } catch (error) {
+//         console.error('Error fetching Stripe API key:', error);
+//       }
+//     }
+//     fetchStripeApiKey();
+//     dispatch(loadUser());
+//   }, [dispatch]);
+
+//   return (
+//     <BrowserRouter>
+//       <div className="App">
+//         <HelmetProvider>
+//           <AppContent  stripeApiKey={stripeApiKey} />
+//         </HelmetProvider>
+//       </div>
+//     </BrowserRouter>
+//   );
+// }
+// export default App;
