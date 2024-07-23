@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { clearerrorauth, passwordchange } from '../../action/UserAction';
 
 function Updatepassword() {
     const{id}=useParams()
+    const navigate=useNavigate()
     // console.log(id);
     const [password, setpassword] = useState("");
     const [oldPassword, setoldpassword] = useState("");
@@ -25,12 +26,13 @@ function Updatepassword() {
 
     useEffect(() => {
         if (isUpdated) {
-            toast('Profile updated successfully', {
+            toast('Password updated successfully', {
                 type: 'success',
                 position: 'top-center',
             });
             setoldpassword("");
             setpassword("");
+            navigate('/')
         }
         if (error) {
             toast.error(error, {

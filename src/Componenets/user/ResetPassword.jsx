@@ -29,6 +29,12 @@ function ResetPassword() {
           toast.error(error);
           dispatch(clearerrorauth());
         }
+        else{
+            toast('Password updated successfully', {
+                type: 'success',
+                position: 'top-center',
+            });
+        }
       }, [error, dispatch]);
 
   return (

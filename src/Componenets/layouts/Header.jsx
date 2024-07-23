@@ -6,10 +6,6 @@ import Search from './Search.jsx';
 import {DropdownButton, Dropdown, Image} from 'react-bootstrap';
 import { useNavigate ,useLocation} from 'react-router-dom'
 
-
-
-
-
 function Header() {
   const { isAuthenticated, user } = useSelector(state => state.authstate);
   const { items:cartItems } = useSelector(state => state.cartstate)
@@ -30,10 +26,10 @@ function Header() {
   //   }
   // }, [isAuthenticated, navigate]);
   useEffect(() => {
-    const publicRoutes = ['/login', '/register','/forgotpassword'];
+    const publicRoutes = ['login','/register','/forgotpassword','./resetpassword/:token'];
     if (!isAuthenticated && !publicRoutes.includes(location.pathname)) {
       console.log('User is not authenticated, navigating to login');
-      navigate('/login');
+      // navigate('/login');
     }
   }, [isAuthenticated, navigate, location.pathname]);
 
@@ -84,3 +80,54 @@ function Header() {
 }
 
 export default Header;
+
+
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+// import { clearError } from '../../Slice/UserSlice';
+// clearError
+// function Header() {
+//   const { isAuthenticated, user } = useSelector(state => state.authstate);
+//   const { items: cartItems } = useSelector(state => state.cartstate);
+//   useEffect(() => {
+//     if (error) {
+//       toast.error(error);
+//       dispatch(clearError());
+//     }
+//   }, [error, dispatch]);
+  
+
+//   return (
+//     <nav className="navbar row">
+//       <div className="col-12 col-md-3">
+//         <div className="navbar-brand">
+//           <Link to="/">
+//             <img width="150px" alt='JVLcart Logo' src="/images/shopicart.png" />
+//           </Link>
+//         </div>
+//       </div>
+
+//       <div className="col-12 col-md-6 mt-2 mt-md-0">
+//         {/* Simplified Search */}
+//         <input type="text" placeholder="Search..." />
+//       </div>
+
+//       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
+//         {isAuthenticated ? (
+//           <div>
+//             <span>{user.name}</span>
+//             <button onClick={() => console.log('Logout')}>Logout</button>
+//           </div>
+//         ) : (
+//           <Link to="/login" className="btn" id="login_btn">Login</Link>
+//         )}
+//         <Link to="/cart"><span id="cart" className="ml-3">Cart</span></Link>
+//         <span className="ml-1" id="cart_count">{cartItems.length}</span>
+//       </div>
+//     </nav>
+//   );
+// }
+
+// export default Header;

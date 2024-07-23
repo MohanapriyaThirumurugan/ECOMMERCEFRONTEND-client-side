@@ -4,10 +4,12 @@ import { useDispatch,useSelector } from 'react-redux';
 import { forgotPassword,clearerrorauth} from "../../action/UserAction";
 import { toast } from "react-toastify";
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 function Forgotpassword() {
     const [email, setEmail] = useState("");
     const dispatch = useDispatch();
     const { error, message } = useSelector(state => state.authstate);
+    const navigate=useNavigate()
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -23,6 +25,7 @@ function Forgotpassword() {
                 position:'POSITION.BOTTOM_CENTER'
             })
             setEmail("");
+            navigate('/resetpassword/:token')
             return;
         }
 
@@ -35,7 +38,7 @@ function Forgotpassword() {
             })
             return
         }
-    }, [message, error, dispatch])
+    }, [message, error, dispatch,navigate])
 
 
   return (
