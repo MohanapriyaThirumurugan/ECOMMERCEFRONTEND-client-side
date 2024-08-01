@@ -48,7 +48,7 @@ export const getProduct = (id )=> async (dispatch) => {
       }
 
       dispatch(productRequest()) 
-      const { data }  =  await axios.get(`http://localhost:8000/getproductbyid/${id}`,config);
+      const { data }  =  await axios.get(`https://e-com-back-end.onrender.com/getproductbyid/${id}`,config);
       dispatch(productSuccess(data))
   } catch (error) {
       //handle error
@@ -76,7 +76,7 @@ export const createReview = formData => async (dispatch) => {
 
     //   const { data }  =  await axios.put(`http://localhost:8000/review`, formData, config);
     // Example URL if the backend expects the product ID in the URL path
-const { data } = await axios.put(`http://localhost:8000/review`, formData, config);
+const { data } = await axios.put(`https://e-com-back-end.onrender.com/review`, formData, config);
 
       dispatch(createReviewSuccess(data))
   } catch (error) {
@@ -101,7 +101,7 @@ export const createNewProduct  =  productData => async (dispatch) => {
 
           }
       }
-        const { data }  =  await axios.post(`http://localhost:8000/createproduct`, productData,config);
+        const { data }  =  await axios.post(`https://e-com-back-end.onrender.com/createproduct`, productData,config);
         dispatch(newProductSuccess(data))
     } catch (error) {
         //handle error
@@ -123,7 +123,7 @@ export const deleteProduct  =  id => async (dispatch) => {
 
           }
       }
-        await axios.delete(`http://localhost:8000/delete/${id}`,config);
+        await axios.delete(`https://e-com-back-end.onrender.com/delete/${id}`,config);
         dispatch(deleteProductSuccess())
     } catch (error) {
         //handle error
@@ -147,7 +147,7 @@ export const updateProduct  =  (id, productData) => async (dispatch) => {
   
             }
         }
-        const { data }  =  await axios.put(`http://localhost:8000/edit/${id}`, productData,config);
+        const { data }  =  await axios.put(`https://e-com-back-end.onrender.com/edit/${id}`, productData,config);
         dispatch(updateProductSuccess(data))
     } catch (error) {
         //handle error
@@ -173,7 +173,7 @@ export const getReviews = id => async (dispatch) => {
 
                 console.log('Axios Config:', config);
 
-        const { data } = await axios.get(`http://localhost:8000/getsinglereview`,  config);
+        const { data } = await axios.get(`https://e-com-back-end.onrender.com/getsinglereview`,  config);
         console.log(data);
         dispatch(reviewsSuccess(data));
     } catch (error) {
@@ -199,7 +199,7 @@ export const deleteReview =  (productId, id) => async (dispatch) => {
             // params: { productId, id } // Pass productId and id as query parameters
 
         }
-        await axios.delete(`http://localhost:8000/deletereveiw/${productId}/${id}`,config);
+        await axios.delete(`https://e-com-back-end.onrender.com/deletereveiw/${productId}/${id}`,config);
         dispatch(deleteReviewSuccess())
     } catch (error) {
         //handle error

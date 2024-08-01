@@ -16,7 +16,7 @@ export const addCartItem = (id, quantity) => async (dispatch) => {
 
             }
         }
-        const { data } = await axios.get(`http://localhost:8000/getproductbyid/${id}`,config);
+        const { data } = await axios.get(`https://e-com-back-end.onrender.com/${id}`,config);
         if (!data || !data.product) {
             throw new Error("Product not found");
         }

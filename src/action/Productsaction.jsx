@@ -8,7 +8,7 @@ import { getToken,removeToken } from '../Axios.jsx'
 
         // for product search
 
-       let link=`http://localhost:8000/getall?page=${currentPage}`
+       let link=`https://e-com-back-end.onrender.com/getall?page=${currentPage}`
        if(keyword){
            link  +=    `&keyword=${keyword}`
        }
@@ -50,7 +50,7 @@ import { getToken,removeToken } from '../Axios.jsx'
           }
       }
  
-        const { data }  =  await axios.get(`http://localhost:8000/admin/getadminproducts`,config);
+        const { data }  =  await axios.get(`https://e-com-back-end.onrender.com/admin/getadminproducts`,config);
         dispatch(adminProductsSuccess(data))
     } catch (error) {
         //handle error
