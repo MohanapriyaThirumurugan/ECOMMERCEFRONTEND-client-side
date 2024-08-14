@@ -49,7 +49,7 @@ import {
 
     try {
         dispatch(loginRequest())
-        const { data }  = await axios.post(`http://localhost:8000/login`,{email,password});
+        const { data }  = await axios.post(`https://e-com-back-end.onrender.com/login`,{email,password});
         // console.log(data["token"]);
         setToken(data.token);
 
@@ -80,7 +80,7 @@ export const register = (userData) => async (dispatch) => {
             }
         }
 
-        const { data }  = await axios.post(`http://localhost:8000/register`,userData);
+        const { data }  = await axios.post(`https://e-com-back-end.onrender.com/register`,userData);
         dispatch(registerSuccess(data))
     } catch (error) {
         dispatch(registerFail(error.response.data.message))
@@ -105,7 +105,7 @@ export const loadUser = () => async (dispatch) => {
         },
       };
   
-      const { data } = await axios.get(`http://localhost:8000/myprofile`, config);
+      const { data } = await axios.get(`https://e-com-back-end.onrender.com/myprofile`, config);
       dispatch(loadUserSuccess(data));
     } catch (error) {
       dispatch(loadUserFail(error.response.data.message));
@@ -115,7 +115,7 @@ export const loadUser = () => async (dispatch) => {
 export const logout = ()=> async (dispatch) => {
 
     try {
-        await axios.get(`http://localhost:8000/logout`);
+        await axios.get(`https://e-com-back-end.onrender.com/logout`);
         dispatch(logoutSuccess())
         removeToken();
        
