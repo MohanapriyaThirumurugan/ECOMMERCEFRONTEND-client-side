@@ -31,7 +31,7 @@ export const createOrder = (order) => async (dispatch) => {
                 Authorization: `Bearer ${token}`,
             },
         };
-        const { data } = await axios.post(`https://e-com-back-end.onrender.com/neworder`, order, config);
+        const { data } = await axios.post(`http://localhost:8000/neworder`, order, config);
         console.log('Order creation response:', data);
 
         dispatch(createOrderSuccess(data));
@@ -54,7 +54,7 @@ export const userOrders = async(dispatch) => {
            }
        }
        dispatch(userOrdersRequest())
-       const {data} = await axios.get(`https://e-com-back-end.onrender.com/myorder`,config)
+       const {data} = await axios.get(`http://localhost:8000/myorder`,config)
        dispatch(userOrdersSuccess(data))
 
     } catch (error) {
@@ -77,7 +77,7 @@ export const orderDetail = (id )=> async(dispatch) => {
            }
        }
 
-       const {data} = await axios.get(`https://e-com-back-end.onrender.com/getsingleoder/${id}`,config)
+       const {data} = await axios.get(`http://localhost:8000/getsingleoder/${id}`,config)
        dispatch(orderDetailSuccess(data))
     } catch (error) {
         dispatch(orderDetailFail(error.response.data.message))
@@ -96,7 +96,7 @@ export const adminOrders = async(dispatch) => {
             }
         }
        dispatch(adminOrdersRequest())
-       const {data} = await axios.get(`https://e-com-back-end.onrender.com/gellallordereduser`,config)
+       const {data} = await axios.get(`http://localhost:8000/gellallordereduser`,config)
        dispatch(adminOrdersSuccess(data))
     } catch (error) {
         dispatch(adminOrdersFail(error.response.data.message))
@@ -116,7 +116,7 @@ export const deleteOrder = (id) => async(dispatch) => {
             }
         }
        dispatch(deleteOrderRequest())
-       await axios.delete(`https://e-com-back-end.onrender.com/deleteorder/${id}`,config)
+       await axios.delete(`http://localhost:8000/deleteorder/${id}`,config)
        dispatch(deleteOrderSuccess())
     } catch (error) {
        dispatch(deleteOrderFail(error.message))
@@ -135,7 +135,7 @@ export const updateOrder = (id, orderData)  => async(dispatch) => {
  
             }
         }
-       const { data} = await axios.put(`https://e-com-back-end.onrender.com/upadateitem/${id}`, orderData,config)
+       const { data} = await axios.put(`http://localhost:8000/upadateitem/${id}`, orderData,config)
        dispatch(updateOrderSuccess(data))
     } catch (error) {
        dispatch(updateOrderFail(error.response.data.message))

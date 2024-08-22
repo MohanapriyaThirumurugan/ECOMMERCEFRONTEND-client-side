@@ -1,4 +1,3 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 
 
@@ -9,9 +8,8 @@ const productsSlice = createSlice({
     initialState: {
         loading: false,
         products:[],
-        count:0
-        
-    
+        productsearch:[],
+        error: null,
     },
     reducers: {
         productsRequest(state, action){
@@ -25,8 +23,6 @@ const productsSlice = createSlice({
                 ...state,
                 loading: false,
                 products: action.payload.products,
-                count:action.payload.count,
-                resPerPage:action.payload.resPerPage
             };
         },
         
@@ -36,6 +32,7 @@ const productsSlice = createSlice({
                 error:  action.payload.errors
             }
         },
+        
        
         adminProductsRequest(state, action){
             return {
@@ -49,14 +46,14 @@ const productsSlice = createSlice({
             return {
                 ...state,
                 loading: false,
-                products: action.payload.products,
+                products:action.payload.products,
             }
         },
         adminProductsFail(state, action){
             return {
                 ...state,
                 loading: false,
-                error:  action.payload
+                error:action.payload
             }
         },
         clearError(state, action){

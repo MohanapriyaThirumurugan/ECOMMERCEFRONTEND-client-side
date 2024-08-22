@@ -1,39 +1,45 @@
 import axios from 'axios'
-import{productsRequest, productsSuccess, productsFail,adminProductsFail,adminProductsSuccess,adminProductsRequest} from '../Slice/ProductsSlice.jsx'
+import{productsRequest, productsSuccess, productsFail,
+  adminProductsFail,
+  adminProductsSuccess,
+  adminProductsRequest,
+
+  
+} from '../Slice/ProductsSlice.jsx'
+
+import { searchFail,searchRequest,searchSuccess } from '../Slice/Searchslice.jsx';
 import { getToken,removeToken } from '../Axios.jsx'
- const getproducts=(keyword, price, category, rating, currentPage)=>async(dispatch)=>{
+
+const fetchAllProducts = () => async (dispatch) => {
     try {
-        // taking the reqiest
-        dispatch(productsRequest())
-
-        // for product search
-
-       let link=`https://e-com-back-end.onrender.com/getall?page=${currentPage}`
-       if(keyword){
-           link  +=    `&keyword=${keyword}`
-       }
-       if(price) {
-        link += `&price[gte]=${price[0]}&price[lte]=${price[1]}`
-    }
-     if(category) {
-        link += `&category=${category}`
-    }
-    if(rating) {
-        link += `&ratings=${rating}`
-    }
-
-    console.log(link);
-        const{data}=await axios.get(link)
-        //products is there are not
-        dispatch(productsSuccess({products:data}))
-        
+      dispatch(productsRequest());
+      const { data } = await axios.get('http://localhost:8000/getall');
+      dispatch(productsSuccess({
+        products: data.products,
+        // count: data.count,
+        // resPerPage: 10 // Default value or set dynamically if needed
+      }));
     } catch (error) {
-        //handle the error
-        dispatch(productsFail(error.response.data.message))
+      dispatch(productsFail(error.response?.data?.message || 'Error fetching products'));
     }
-   
-}
- export default getproducts
+  };
+  
+  export default fetchAllProducts;
+
+  export const searchProducts = (keyword) => async (dispatch) => {
+    try {
+      dispatch(searchRequest());
+      const { data } = await axios.get(`http://localhost:8000/pro/search?keyword=${keyword}`);
+      dispatch(searchSuccess({
+        productsearch: data.productsearch,
+      //   count: data.count,
+      //   resPerPage: 10 // Default value or set dynamically if needed
+      }));
+    } catch (error) {
+      dispatch(searchFail(error.response?.data?.message || 'Error searching products'));
+    }
+
+  }
 
  export const getAdminProducts =() =>async (dispatch) => {
 
@@ -50,7 +56,7 @@ import { getToken,removeToken } from '../Axios.jsx'
           }
       }
  
-        const { data }  =  await axios.get(`https://e-com-back-end.onrender.com/admin/getadminproducts`,config);
+        const { data }  =  await axios.get(`http://localhost:8000/admin/getadminproducts`,config);
         dispatch(adminProductsSuccess(data))
     } catch (error) {
         //handle error
@@ -61,41 +67,3 @@ import { getToken,removeToken } from '../Axios.jsx'
  
 
 
-// import AxiosService from '../Axios.jsx'; // Import the configured Axios instance
-// import { productsRequest, productsSuccess, productsFail } from '../Slice/ProductsSlice.jsx';
-
-// const getproducts = (keyword, price, category, rating, currentPage) => async (dispatch) => {
-//     try {
-//         // Initiate the request
-//         dispatch(productsRequest());
-
-//         // Construct the query URL
-//         let link = `/getall?page=${currentPage}`;
-//         if (keyword) {
-//             link += `&keyword=${keyword}`;
-//         }
-//         if (price) {
-//             link += `&price[gte]=${price[0]}&price[lte]=${price[1]}`;
-//         }
-//         if (category) {
-//             link += `&category=${category}`;
-//         }
-//         if (rating) {
-//             link += `&ratings=${rating}`;
-//         }
-
-//         // Make the request using AxiosService
-//         const {data} = await AxiosService.get(link);
-
-//         // Dispatch success action
-//         dispatch(productsSuccess({ products:data }));
-//     } catch (error) {
-//         // Handle the error
-//         console.error('Full error details:', error);
-//        dispatch(productsFail(error.response.data.message));
-//     }
-// };
-
-// export default getproducts;
-
-  

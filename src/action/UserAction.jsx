@@ -49,7 +49,7 @@ import {
 
     try {
         dispatch(loginRequest())
-        const { data }  = await axios.post(`https://e-com-back-end.onrender.com/login`,{email,password});
+        const { data }  = await axios.post(`http://localhost:8000/login`,{email,password});
         // console.log(data["token"]);
         setToken(data.token);
 
@@ -80,7 +80,7 @@ export const register = (userData) => async (dispatch) => {
             }
         }
 
-        const { data }  = await axios.post(`https://e-com-back-end.onrender.com/register`,userData);
+        const { data }  = await axios.post(`http://localhost:8000/register`,userData);
         dispatch(registerSuccess(data))
     } catch (error) {
         dispatch(registerFail(error.response.data.message))
@@ -105,7 +105,7 @@ export const loadUser = () => async (dispatch) => {
         },
       };
   
-      const { data } = await axios.get(`https://e-com-back-end.onrender.com/myprofile`, config);
+      const { data } = await axios.get(`http://localhost:8000/myprofile`, config);
       dispatch(loadUserSuccess(data));
     } catch (error) {
       dispatch(loadUserFail(error.response.data.message));
@@ -115,7 +115,7 @@ export const loadUser = () => async (dispatch) => {
 export const logout = ()=> async (dispatch) => {
 
     try {
-        await axios.get(`https://e-com-back-end.onrender.com/logout`);
+        await axios.get(`http://localhost:8000/logout`);
         dispatch(logoutSuccess())
         removeToken();
        
@@ -139,7 +139,7 @@ export const myprofileupdate=({formData,id}) => async (dispatch) => {
             }
         }
 
-        const { data }  = await axios.put(`https://e-com-back-end.onrender.com/updateprofile/${id}`,formData, config);
+        const { data }  = await axios.put(`http://localhost:8000/updateprofile/${id}`,formData, config);
         dispatch(updateProfileSuccess(data))
     } catch (error) {
         dispatch(updateProfileFail(error.response.data.message))
@@ -164,7 +164,7 @@ export const passwordchange=(formData,id) => async (dispatch) => {
             }
         }
 
-         await axios.put(`https://e-com-back-end.onrender.com/changepassword/${id}`,formData, config);
+         await axios.put(`http://localhost:8000/changepassword/${id}`,formData, config);
          dispatch(updatePasswordSuccess())
     } catch (error) {
         dispatch(updatePasswordFail(error.response.data.message))
@@ -181,7 +181,7 @@ export const forgotPassword = (formData) => async (dispatch) => {
                 'Content-type': 'application/json'
             }
         }
-        const { data} =  await axios.post(`https://e-com-back-end.onrender.com/forgotpassword`, formData, config);
+        const { data} =  await axios.post(`http://localhost:8000/forgotpassword`, formData, config);
         dispatch(forgotPasswordSuccess(data))
     } catch (error) {
         dispatch(forgotPasswordFail(error.response.data.message))
@@ -198,7 +198,7 @@ export const resetPassword = (formData, token) => async (dispatch) => {
                 'Content-type': 'application/json'
             }
         }
-        const { data} =  await axios.post(`https://e-com-back-end.onrender.com/resetpassword/${token}`, formData, config);
+        const { data} =  await axios.post(`http://localhost:8000/resetpassword/${token}`, formData, config);
         dispatch(resetPasswordSuccess(data))
     } catch (error) {
         dispatch(resetPasswordFail(error.response.data.message))
@@ -220,7 +220,7 @@ export const getUsers =  async (dispatch) => {
 
             }
         }
-        const { data }  = await axios.get(`https://e-com-back-end.onrender.com/admin/getalluser`,config);
+        const { data }  = await axios.get(`http://localhost:8000/admin/getalluser`,config);
         dispatch(usersSuccess(data))
     } catch (error) {
         dispatch(usersFail(error.response.data.message))
@@ -243,7 +243,7 @@ export const getUser = id => async (dispatch) => {
 
             }
         }
-        const { data }  = await axios.get(`https://e-com-back-end.onrender.com/admin/getbyid/${id}`,config);
+        const { data }  = await axios.get(`http://localhost:8000/admin/getbyid/${id}`,config);
         dispatch(userSuccess(data))
     } catch (error) {
         dispatch(userFail(error.response.data.message))
@@ -265,7 +265,7 @@ export const deleteUser = id => async (dispatch) => {
 
             }
         }
-        await axios.delete(`https://e-com-back-end.onrender.com/admin/delete/${id}`,config);
+        await axios.delete(`http://localhost:8000/admin/delete/${id}`,config);
         dispatch(deleteUserSuccess())
     } catch (error) {
         dispatch(deleteUserFail(error.response.data.message))
@@ -288,7 +288,7 @@ export const updateUser = (id, formData) => async (dispatch) => {
             }
         }
        
-        await axios.put(`https://e-com-back-end.onrender.com/admin/update/${id}`, formData, config);
+        await axios.put(`http://localhost:8000/admin/update/${id}`, formData, config);
         dispatch(updateUserSuccess())
     } catch (error) {
         dispatch(updateUserFail(error.response.data.message))
