@@ -13,7 +13,7 @@ import { getToken,removeToken } from '../Axios.jsx'
 const fetchAllProducts = () => async (dispatch) => {
     try {
       dispatch(productsRequest());
-      const { data } = await axios.get('http://localhost:8000/getall');
+      const { data } = await axios.get('https://e-com-back-end.onrender.com/getall');
       dispatch(productsSuccess({
         products: data.products,
         // count: data.count,
@@ -29,7 +29,7 @@ const fetchAllProducts = () => async (dispatch) => {
   export const searchProducts = (keyword) => async (dispatch) => {
     try {
       dispatch(searchRequest());
-      const { data } = await axios.get(`http://localhost:8000/pro/search?keyword=${keyword}`);
+      const { data } = await axios.get(`https://e-com-back-end.onrender.com/pro/search?keyword=${keyword}`);
       dispatch(searchSuccess({
         productsearch: data.productsearch,
       //   count: data.count,
@@ -56,7 +56,7 @@ const fetchAllProducts = () => async (dispatch) => {
           }
       }
  
-        const { data }  =  await axios.get(`http://localhost:8000/admin/getadminproducts`,config);
+        const { data }  =  await axios.get(`https://e-com-back-end.onrender.com/admin/getadminproducts`,config);
         dispatch(adminProductsSuccess(data))
     } catch (error) {
         //handle error

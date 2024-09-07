@@ -49,7 +49,7 @@ import {
 
     try {
         dispatch(loginRequest())
-        const { data }  = await axios.post(`http://localhost:8000/login`,{email,password});
+        const { data }  = await axios.post(`https://e-com-back-end.onrender.com/login`,{email,password});
         // console.log(data["token"]);
         setToken(data.token);
 
@@ -80,7 +80,7 @@ export const register = (userData) => async (dispatch) => {
             }
         }
 
-        const { data }  = await axios.post(`http://localhost:8000/register`,userData);
+        const { data }  = await axios.post(`https://e-com-back-end.onrender.com/register`,userData);
         dispatch(registerSuccess(data))
     } catch (error) {
         dispatch(registerFail(error.response.data.message))
@@ -105,7 +105,7 @@ export const loadUser = () => async (dispatch) => {
         },
       };
   
-      const { data } = await axios.get(`http://localhost:8000/myprofile`, config);
+      const { data } = await axios.get(`https://e-com-back-end.onrender.com/myprofile`, config);
       dispatch(loadUserSuccess(data));
     } catch (error) {
       dispatch(loadUserFail(error.response.data.message));
@@ -115,7 +115,7 @@ export const loadUser = () => async (dispatch) => {
 export const logout = ()=> async (dispatch) => {
 
     try {
-        await axios.get(`http://localhost:8000/logout`);
+        await axios.get(`https://e-com-back-end.onrender.com/logout`);
         dispatch(logoutSuccess())
         removeToken();
        
@@ -139,7 +139,7 @@ export const myprofileupdate=({formData,id}) => async (dispatch) => {
             }
         }
 
-        const { data }  = await axios.put(`http://localhost:8000/updateprofile/${id}`,formData, config);
+        const { data }  = await axios.put(`https://e-com-back-end.onrender.com/updateprofile/${id}`,formData, config);
         dispatch(updateProfileSuccess(data))
     } catch (error) {
         dispatch(updateProfileFail(error.response.data.message))
@@ -164,7 +164,7 @@ export const passwordchange=(formData,id) => async (dispatch) => {
             }
         }
 
-         await axios.put(`http://localhost:8000/changepassword/${id}`,formData, config);
+         await axios.put(`https://e-com-back-end.onrender.com/changepassword/${id}`,formData, config);
          dispatch(updatePasswordSuccess())
     } catch (error) {
         dispatch(updatePasswordFail(error.response.data.message))
@@ -181,7 +181,7 @@ export const forgotPassword = (formData) => async (dispatch) => {
                 'Content-type': 'application/json'
             }
         }
-        const { data} =  await axios.post(`http://localhost:8000/forgotpassword`, formData, config);
+        const { data} =  await axios.post(`https://e-com-back-end.onrender.com/forgotpassword`, formData, config);
         dispatch(forgotPasswordSuccess(data))
     } catch (error) {
         dispatch(forgotPasswordFail(error.response.data.message))
@@ -198,7 +198,7 @@ export const resetPassword = (formData, token) => async (dispatch) => {
                 'Content-type': 'application/json'
             }
         }
-        const { data} =  await axios.post(`http://localhost:8000/resetpassword/${token}`, formData, config);
+        const { data} =  await axios.post(`https://e-com-back-end.onrender.com/resetpassword/${token}`, formData, config);
         dispatch(resetPasswordSuccess(data))
     } catch (error) {
         dispatch(resetPasswordFail(error.response.data.message))
@@ -220,7 +220,7 @@ export const getUsers =  async (dispatch) => {
 
             }
         }
-        const { data }  = await axios.get(`http://localhost:8000/admin/getalluser`,config);
+        const { data }  = await axios.get(`https://e-com-back-end.onrender.com/admin/getalluser`,config);
         dispatch(usersSuccess(data))
     } catch (error) {
         dispatch(usersFail(error.response.data.message))
@@ -243,7 +243,7 @@ export const getUser = id => async (dispatch) => {
 
             }
         }
-        const { data }  = await axios.get(`http://localhost:8000/admin/getbyid/${id}`,config);
+        const { data }  = await axios.get(`https://e-com-back-end.onrender.com/admin/getbyid/${id}`,config);
         dispatch(userSuccess(data))
     } catch (error) {
         dispatch(userFail(error.response.data.message))
@@ -265,7 +265,7 @@ export const deleteUser = id => async (dispatch) => {
 
             }
         }
-        await axios.delete(`http://localhost:8000/admin/delete/${id}`,config);
+        await axios.delete(`https://e-com-back-end.onrender.com/admin/delete/${id}`,config);
         dispatch(deleteUserSuccess())
     } catch (error) {
         dispatch(deleteUserFail(error.response.data.message))
@@ -288,158 +288,10 @@ export const updateUser = (id, formData) => async (dispatch) => {
             }
         }
        
-        await axios.put(`http://localhost:8000/admin/update/${id}`, formData, config);
+        await axios.put(`https://e-com-back-end.onrender.com/admin/update/${id}`, formData, config);
         dispatch(updateUserSuccess())
     } catch (error) {
         dispatch(updateUserFail(error.response.data.message))
     }
 
 }
-
-// import AxiosService from '../Axios.jsx'; // Import the configured Axios instance
-// import {
-//     loginRequest,
-//     loginSuccess,
-//     loginFail,
-//     clearerror,
-//     registerRequest,
-//     registerSuccess,
-//     registerFail,
-//     loadUserFail,
-//     loadUserSuccess,
-//     loadUserRequest,
-//     logoutSuccess,
-//     logoutFail,
-//     updateProfileRequest,
-//     updateProfileSuccess,
-//     updateProfileFail,
-//     clearUpdateProfile,
-//     updatePasswordFail,
-//     updatePasswordRequest,
-//     updatePasswordSuccess,
-//     forgotPasswordFail,
-//     forgotPasswordRequest,
-//     forgotPasswordSuccess,
-//     resetPasswordFail,
-//     resetPasswordRequest,
-//     resetPasswordSuccess
-// } from '../Slice/AuthSlice.jsx';
-
-// export const login = (email, password) => async (dispatch) => {
-//     try {
-//         dispatch(loginRequest());
-//         const { data } = await AxiosService.post(`/login`, { email, password });
-//         dispatch(loginSuccess(data));
-//     } catch (error) {
-//         dispatch(loginFail(error.response.data.message));
-//     }
-// };
-
-// export const clearerrorauth = () => (dispatch) => {
-//     dispatch(clearerror());
-// };
-
-// export const register = (userData) => async (dispatch) => {
-//     try {
-//         dispatch(registerRequest());
-//         // Using multipart/form-data for registration with picture
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'multipart/form-data'
-//             }
-//         };
-//         const { data } = await AxiosService.post(`/register`, userData, config);
-//         dispatch(registerSuccess(data));
-//     } catch (error) {
-//         dispatch(registerFail(error.response.data.message));
-//     }
-// };
-
-// import axios from 'axios';
-
-
-// export const loadUser = () => async (dispatch) => {
-//     try {
-//         dispatch(loadUserRequest());
-//         const response = await axios.get('http://localhost:8000/myprofile');
-//         const data = response?.data;
-//         if (data) {
-//             dispatch(loadUserSuccess(data));
-//         } else {
-//             throw new Error('No data found');
-//         }
-//     } catch (error) {
-//         console.error('Error loading user:', error);
-//         dispatch(loadUserFail(error.message || 'Something went wrong'));
-//     }
-// };
-
-
-// export const logout = async (dispatch) => {
-//     try {
-//         await AxiosService.get(`/logout`, { authenticate: true });
-//         dispatch(logoutSuccess());
-//     } catch (error) {
-//         dispatch(logoutFail());
-//     }
-// };
-
-// export const myprofileupdate = (formData) => async (dispatch) => {
-//     try {
-//         dispatch(updateProfileRequest());
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'multipart/form-data'
-//             }
-//         };
-//         const { data } = await AxiosService.put(`/updateprofile`, formData, { ...config, authenticate: true });
-//         dispatch(updateProfileSuccess(data));
-//     } catch (error) {
-//         dispatch(updateProfileFail(error.response.data.message));
-//     }
-// };
-
-// export const passwordchange = (formData) => async (dispatch) => {
-//     try {
-//         dispatch(updatePasswordRequest());
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         };
-//         await AxiosService.put(`/changepassword`, formData, { ...config, authenticate: true });
-//         dispatch(updatePasswordSuccess());
-//     } catch (error) {
-//         dispatch(updatePasswordFail(error.response.data.message));
-//     }
-// };
-
-// export const forgotPassword = (formData) => async (dispatch) => {
-//     try {
-//         dispatch(forgotPasswordRequest());
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         };
-//         const { data } = await AxiosService.post(`/forgotpassword`, formData, config);
-//         dispatch(forgotPasswordSuccess(data));
-//     } catch (error) {
-//         dispatch(forgotPasswordFail(error.response.data.message));
-//     }
-// };
-
-// export const resetPassword = (formData, token) => async (dispatch) => {
-//     try {
-//         dispatch(resetPasswordRequest());
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         };
-//         const { data } = await AxiosService.post(`/resetpassword/${token}`, formData, config);
-//         dispatch(resetPasswordSuccess(data));
-//     } catch (error) {
-//         dispatch(resetPasswordFail(error.response.data.message));
-//     }
-// };
